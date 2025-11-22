@@ -1,0 +1,38 @@
+# ============================================================================
+# Carbon Credit & Plant Verification System - Requirements
+# Complete system with Unified Pipeline + Real x402 Protocol + Joyo AI
+# ============================================================================
+
+# Core Dependencies
+python-dotenv==1.0.1
+numpy==2.2.6
+requests==2.31.0
+
+# Computer Vision & AI
+opencv-python==4.12.0.88
+mediapipe==0.10.8
+cvzone==1.6.1
+Pillow==12.0.0
+
+# OpenAI (GPT-4 Vision for AI validation)
+openai==1.59.7
+
+# Blockchain
+py-algorand-sdk==2.8.0
+
+# ============================================================================
+# OFFICIAL COINBASE x402 PROTOCOL
+# https://github.com/coinbase/x402
+# ============================================================================
+x402>=0.1.0
+
+# Web Frameworks (for x402 API)
+flask==3.0.0
+flask-cors==4.0.0
+fastapi==0.115.6
+uvicorn==0.34.0
+python-multipart==0.0.20
+
+# Ethereum account management (required by x402)
+eth-account>=0.10.0
+web3>=6.11.0

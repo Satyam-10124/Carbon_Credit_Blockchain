@@ -1,0 +1,104 @@
+# ===================================================================
+# Railway Ignore File
+# Files/folders to exclude from Railway deployment
+# ===================================================================
+
+# CRITICAL: Virtual Environment (250MB+ - DO NOT UPLOAD!)
+venv/
+env/
+ENV/
+.venv
+venv.bak/
+env.bak/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# Testing files
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+test_results_*.json
+test_*.py
+tests/
+
+# Documentation (not needed for runtime)
+*.md
+docs/
+DEPLOYMENT*.md
+README.md
+QUICK_DEPLOY.md
+API_ENDPOINTS.md
+FEATURE_TEST_REPORT.md
+ETH_BUENOS_AIRES_PITCH_DECK.md
+
+# Archive folder
+archive/
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files (Railway sets these via dashboard)
+.env
+.env.local
+.env.example
+.env.production.example
+
+# Frontend (separate deployment to Vercel)
+frontend/
+
+# Temporary/test files
+*.tmp
+*.bak
+*.cache
+unified_verification_*.json
+
+# Shell scripts (not needed for runtime)
+*.sh
+run_*.sh
+setup.sh
+deploy.sh
+
+# Development files
+demo_*.py
+test_*.py
+client_*.py
+
+# Logs (Railway has its own logging)
+*.log
+logs/
+
+# Database files (use Railway PostgreSQL)
+*.db
+*.sqlite
+*.sqlite3
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/

@@ -1,0 +1,31 @@
+# Minimal requirements for Railway deployment
+# Excludes heavy packages like MediaPipe, OpenCV
+
+# Core API
+fastapi==0.115.6
+uvicorn[standard]==0.30.0
+gunicorn==21.2.0
+
+# Database
+psycopg2-binary==2.9.9
+
+# OpenAI (for AI services)
+openai
+
+# Algorand blockchain
+py-algorand-sdk
+
+# Utilities
+python-dotenv
+requests
+python-multipart
+
+# CORS middleware (included in FastAPI but explicit)
+# No MediaPipe - not needed for API-only deployment
+# No OpenCV - not needed for API-only deployment
+# No NumPy - not needed for basic API
+
+# These are only needed for local development with gesture verification:
+# mediapipe==0.10.14
+# opencv-python==4.12.0.86
+# cvzone==1.6.1

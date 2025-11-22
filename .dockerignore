@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+test_results_*.json
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (not needed in container)
+*.md
+docs/
+archive/
+
+# Frontend (separate deployment)
+frontend/
+.next/
+node_modules/
+
+# Environment (will be set by Railway)
+.env
+.env.local
+.env.*.local
+
+# Temp files
+*.tmp
+*.bak
+*.cache
+unified_verification_*.json
+test_results_*.json
