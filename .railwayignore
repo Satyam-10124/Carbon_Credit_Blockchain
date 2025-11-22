@@ -72,10 +72,11 @@ frontend/
 unified_verification_*.json
 
 # Shell scripts (not needed for runtime)
-*.sh
+# *.sh  # COMMENTED OUT - we need start.sh!
 run_*.sh
 setup.sh
 deploy.sh
+# Keep start.sh - needed for Railway
 
 # Development files
 demo_*.py

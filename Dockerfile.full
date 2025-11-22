@@ -1,15 +1,14 @@
-# Optimized Dockerfile - Faster builds, smaller packages
+# Optimized Dockerfile for Railway - API only, no heavy packages
 FROM python:3.12-slim
 
-# Prevent Python from writing pyc files and buffer output
+# Environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_DEFAULT_TIMEOUT=300
 
-# Install ONLY essential system dependencies
-# Removed: MediaPipe dependencies (too heavy for Railway)
+# Install only essential system dependencies
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     curl \
@@ -21,24 +20,17 @@ WORKDIR /app
 # Copy requirements
 COPY requirements.txt requirements_postgres.txt ./
 
-# Install MINIMAL Python packages for API only
-# Skip MediaPipe, OpenCV (not needed for API)
+# Install minimal Python packages (API only, no MediaPipe/OpenCV)
 RUN pip install --no-cache-dir \
-    # Core API packages
     fastapi==0.115.6 \
     uvicorn[standard]==0.30.0 \
     gunicorn==21.2.0 \
-    # Database
     psycopg2-binary==2.9.9 \
-    # OpenAI
     openai \
-    # Algorand
     py-algorand-sdk \
-    # Utilities
     python-dotenv \
     requests \
     python-multipart \
-    # CORS
     && pip install --no-cache-dir -r requirements_postgres.txt || true
 
 # Copy application code
@@ -47,18 +39,12 @@ COPY . .
 # Create upload directory
 RUN mkdir -p /tmp/joyo_uploads && chmod 777 /tmp/joyo_uploads
 
-# Expose port
+# Expose port (Railway overrides with $PORT)
 EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+# Copy and run startup script
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
-# Run with gunicorn - Railway provides PORT via env var
-CMD gunicorn api_joyo_core:app \
-    --worker-class uvicorn.workers.UvicornWorker \
-    --workers 2 \
-    --bind 0.0.0.0:${PORT:-8000} \
-    --timeout 120 \
-    --access-logfile - \
-    --error-logfile -
+# Use startup script to handle Railway's dynamic PORT
+CMD ["/app/start.sh"]
