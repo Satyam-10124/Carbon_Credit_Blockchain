@@ -1,527 +1,205 @@
-# 🌍 Carbon Credit & Plant Verification System
+# Joyo - Carbon Credit & Plant Verification System
 
-A comprehensive blockchain-based system for carbon credit verification with AI-powered plant recognition, health monitoring, and automated payments using the real **Coinbase x402 protocol**.
+Blockchain-based carbon credit verification with AI plant recognition, health monitoring, and Coinbase x402 payments.
 
----
-
-## 📋 Table of Contents
-
-1. [Features](#features)
-2. [System Architecture](#system-architecture)
-3. [Quick Start](#quick-start)
-4. [Components](#components)
-5. [x402 Payment Protocol](#x402-payment-protocol)
-6. [API Documentation](#api-documentation)
-7. [Testing](#testing)
-8. [Deployment](#deployment)
+**Production API:** https://joyo-cc-production.up.railway.app
 
 ---
 
-## ✨ Features
-
-### Core System
-- ✅ **7-Stage Verification Pipeline** - Complete plant verification workflow
-- ✅ **AI-Powered Recognition** - 8+ plant species identification (95% accuracy)
-- ✅ **Health Diagnosis** - 8+ plant issue detection (90% accuracy)
-- ✅ **GPS Verification** - Location tracking with weather validation
-- ✅ **Biometric Gestures** - Hand gesture confirmation system
-- ✅ **AI Fraud Detection** - GPT-4 Vision powered fraud analysis
-- ✅ **Algorand NFT** - Immutable carbon credit minting on blockchain
-
-### Joyo AI Services
-- 🌱 **Plant Recognition** - Species identification with confidence scores
-- 🏥 **Health Monitoring** - Disease and issue detection
-- 🔍 **Same Plant Verification** - Fingerprint matching across photos
-- 📍 **Geo-Verification** - Location consistency checking
-- 💊 **Organic Remedies** - Database of 8+ organic treatments
-
-### x402 Payment Protocol (Real Coinbase)
-- 💰 **HTTP 402 Payments** - Official Coinbase x402 protocol
-- 🤖 **AI-Native** - AI agents can pay automatically
-- ⚡ **Instant Settlement** - Payments settled in 15 seconds
-- 💎 **Micropayments** - Pay as little as $0.000001
-- 🌐 **USDC on Base** - Low-fee Layer 2 payments
-
----
-
-## 🏗️ System Architecture
+## Repo Structure
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                   USER INTERACTION                           │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-      ┌──────────────┼──────────────┐
-      │              │               │
-      ▼              ▼               ▼
-┌──────────┐   ┌──────────┐   ┌──────────┐
-│  Unified │   │   x402   │   │   Joyo   │
-│  System  │   │   API    │   │    AI    │
-└─────┬────┘   └─────┬────┘   └─────┬────┘
-      │              │               │
-      │         ┌────┴────┐         │
-      │         │Facilitator│        │
-      │         │(Coinbase)│         │
-      │         └─────────┘         │
-      │                             │
-      ▼                             ▼
-┌──────────────────────────────────────────┐
-│        VERIFICATION PIPELINE             │
-├──────────────────────────────────────────┤
-│ 1. Plant Recognition (AI)                │
-│ 2. Health Scan (AI)                      │
-│ 3. Geo-Verification (GPS + Weather)      │
-│ 4. Gesture Verification (Biometric)      │
-│ 5. AI Fraud Detection (GPT-4 Vision)     │
-│ 6. Report Generation                     │
-│ 7. NFT Minting (Algorand Blockchain)     │
-└──────────────────────────────────────────┘
-                     │
-                     ▼
-            ┌────────────────┐
-            │   ALGORAND     │
-            │   BLOCKCHAIN   │
-            │  (NFT + Data)  │
-            └────────────────┘
+.
+├── api_joyo_core.py           # Main FastAPI application (production)
+├── database_postgres.py       # PostgreSQL database layer
+├── enhanced_ai_validator.py   # GPT-4 fraud detection engine
+├── ai_validator.py            # Fallback AI validator
+├── algorand_nft.py            # Algorand ARC-69 NFT minting
+├── x402_real.py               # Coinbase x402 payment protocol
+├── gps_validator.py           # GPS + weather verification
+├── gesture_verification.py    # Biometric gesture capture
+├── unified_main.py            # CLI for full 7-stage pipeline
+├── joyo_ai_services/          # AI modules (recognition, health, geo)
+├── frontend/                  # Next.js 14 web app
+├── tests/                     # E2E and unit tests
+├── scripts/                   # Shell scripts (run, deploy, demo)
+├── docs/                      # Extended documentation
+├── requirements.txt           # Python dependencies
+├── Dockerfile                 # Production container
+├── railway.json               # Railway deployment config
+├── start.sh                   # Production entrypoint
+├── setup.sh                   # Local dev setup
+└── .env.example               # Environment variable template
 ```
 
 ---
 
-## 🚀 Quick Start
+## Features
 
-### 1. Setup
+- **7-Stage Verification Pipeline** - Plant recognition, health scan, GPS + weather, biometric gesture, GPT-4 fraud detection, report generation, Algorand NFT minting
+- **AI Services** - GPT-4o Vision for plant ID (95% accuracy) and health diagnosis (85+ score), GPT-4 for fraud detection
+- **Blockchain** - ARC-69 NFTs on Algorand with full metadata (species, GPS, biometric hash, carbon offset)
+- **Payments** - Coinbase x402 protocol for USDC micropayments on Base L2
+- **Points & Rewards** - Gamified system (30 pts for planting, 5 pts for watering/scans, streaks)
+- **Real-time Weather** - OpenWeather API for geo cross-validation
+
+---
+
+## Architecture
+
+```
+User (Frontend / API client)
+  │
+  ▼
+FastAPI (api_joyo_core.py)
+  ├── joyo_ai_services/     → GPT-4o Vision (plant recognition + health)
+  ├── enhanced_ai_validator  → GPT-4 (fraud detection)
+  ├── gps_validator          → OpenWeather API (geo verification)
+  ├── gesture_verification   → Biometric capture
+  ├── algorand_nft           → Algorand blockchain (NFT minting)
+  ├── x402_real              → Coinbase x402 (payments)
+  └── database_postgres      → PostgreSQL (users, plants, points)
+```
+
+---
+
+## Quick Start
 
 ```bash
-# Clone and navigate
-cd Carbon_Credit_Blockchain
-
-# Create virtual environment
 python3 -m venv venv
 source venv/bin/activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Setup environment
-cp .env.example .env
-# Edit .env with your API keys
+cp .env.example .env   # add your API keys
 ```
 
-### 2. Run the Unified System
+### Run the API server locally
 
 ```bash
-./run_unified_system.sh
+uvicorn api_joyo_core:app --reload --port 8000
 ```
 
-**What it does:**
-- Complete 7-stage verification
-- Plant recognition & health scan
-- GPS + weather verification
-- Gesture biometric capture
-- AI fraud detection
-- NFT minting on Algorand
-
-### 3. Run x402 Payment API
+### Run the CLI verification pipeline
 
 ```bash
-./run_real_x402.sh
-# Choose: 2 (API Server)
-```
-
-**Available endpoints:**
-- `POST /api/v1/verify-plant` - $25 USDC
-- `POST /api/v1/health-scan` - $30 USDC
-- `GET /api/v1/remedy/<type>` - $20 USDC
-- `POST /api/v1/carbon-credit/buy/<id>` - Variable
-
-### 4. Run Joyo AI Demo
-
-```bash
-./run_joyo_demo.sh
-```
-
-**Demonstrates:**
-- Plant catalog (8 species)
-- Health diagnosis
-- Organic remedies
-- Location profiles
-
----
-
-## 🧩 Components
-
-### Core Files
-
-| File | Purpose |
-|------|---------|
-| `unified_main.py` | **Main application** - 7-stage verification pipeline |
-| `enhanced_ai_validator.py` | GPT-4 Vision AI fraud detection |
-| `ai_validator.py` | Fallback AI validator |
-| `gesture_verification.py` | Biometric gesture capture system |
-| `gps_validator.py` | GPS verification with weather API |
-| `algorand_nft.py` | NFT minting on Algorand blockchain |
-
-### x402 Protocol (Real Coinbase)
-
-| File | Purpose |
-|------|---------|
-| `x402_real.py` | Official Coinbase x402 protocol implementation |
-| `api_with_real_x402.py` | Flask API with x402 payment middleware |
-| `demo_real_x402.py` | x402 protocol demonstrations |
-
-### Joyo AI Services
-
-```
-joyo_ai_services/
-├── plant_recognition.py    # Species identification
-├── plant_health.py          # Health diagnosis  
-├── plant_verification.py    # Same plant matching
-├── geo_verification.py      # Location consistency
-└── data/
-    ├── plant_catalog.py     # 8 plant species database
-    ├── remedy_catalog.py    # 8 organic remedies
-    └── location_profiles.py # Location data
-```
-
-### Tests
-
-| File | Purpose |
-|------|---------|
-| `test_complete_system.py` | Complete system test suite |
-| `test_nft_minting.py` | NFT minting tests |
-
----
-
-## 💳 x402 Payment Protocol
-
-### What is x402?
-
-**x402** is Coinbase's official HTTP 402 Payment Required protocol for AI-native payments.
-
-### Features
-
-- ✅ **HTTP-Native** - Uses standard HTTP headers
-- ✅ **Micropayments** - As low as $0.000001
-- ✅ **Instant** - Settled in ~15 seconds
-- ✅ **AI-Friendly** - Bots can pay automatically
-- ✅ **Low Fees** - Only blockchain gas (~$0.01)
-- ✅ **Global** - Works anywhere with crypto wallet
-
-### How It Works
-
-```
-1. Client → GET /api/verify-plant
-2. Server → 402 Payment Required (with payment details)
-3. Client → Creates signed payment authorization
-4. Client → Retry with X-PAYMENT header
-5. Server → Verifies with facilitator
-6. Server → Settles on blockchain
-7. Server → Returns resource + X-PAYMENT-RESPONSE
-```
-
-### Example: Pay for API
-
-```bash
-# Step 1: Request (get 402)
-curl http://localhost:5000/api/v1/verify-plant \
-  -X POST \
-  -F "image=@plant.jpg"
-
-# Response: 402 with payment requirements
-
-# Step 2: Retry with payment
-curl http://localhost:5000/api/v1/verify-plant \
-  -X POST \
-  -H "X-PAYMENT: <base64_signed_payload>" \
-  -F "image=@plant.jpg"
-
-# Response: 200 OK with result + X-PAYMENT-RESPONSE
-```
-
-**Learn more**: See `REAL_X402_GUIDE.md`
-
----
-
-## 📡 API Documentation
-
-### Unified Verification API
-
-#### Complete Verification
-```python
-# Run complete 7-stage pipeline
 python3 unified_main.py
 ```
 
-**Stages:**
-1. Plant Recognition (optional if image provided)
-2. Health Scan (optional if image provided)
-3. Geo-Verification (GPS + Weather)
-4. Gesture Verification (10 seconds, 3+ gestures)
-5. AI Fraud Detection (GPT-4 Vision analysis)
-6. Report Generation (comprehensive report)
-7. NFT Minting (Algorand blockchain)
+### Run helper scripts
 
-### x402 Payment API
-
-#### Plant Verification
-```http
-POST /api/v1/verify-plant
-Content-Type: multipart/form-data
-X-PAYMENT: <base64_payload>
-
-image: (binary)
-species: "bamboo"
+```bash
+./scripts/run_unified_system.sh   # full 7-stage pipeline
+./scripts/run_real_x402.sh        # x402 payment API
 ```
-
-**Cost**: 25 USDC  
-**Network**: Base L2
-
-#### Health Scan
-```http
-POST /api/v1/health-scan
-X-PAYMENT: <base64_payload>
-
-image: (binary)
-species: "tulsi"
-```
-
-**Cost**: 30 USDC  
-**Network**: Base L2
-
-#### Remedy Database
-```http
-GET /api/v1/remedy/nitrogen-deficiency
-X-PAYMENT: <base64_payload>
-```
-
-**Cost**: 20 USDC  
-**Network**: Base L2
-
-### Joyo AI Services
-
-See `joyo_ai_services/README.md` for detailed API documentation.
 
 ---
 
-## 🧪 Testing
-
-### Run Complete Test Suite
-
-```bash
-./run_complete_test.sh
-```
-
-### Run Individual Tests
-
-```bash
-# Test complete system
-python3 test_complete_system.py
-
-# Test NFT minting
-python3 test_nft_minting.py
-
-# Test x402 protocol
-python3 demo_real_x402.py
-```
-
-### Expected Results
-
-✅ All core components working  
-✅ AI services functional  
-✅ NFT minting successful  
-✅ x402 payment flow correct  
-✅ No critical errors  
-
----
-
-## 🚢 Deployment
-
-### Environment Variables
+## Environment Variables
 
 ```bash
 # Required
-OPENAI_API_KEY="sk-..."              # OpenAI GPT-4
+OPENAI_API_KEY="sk-..."              # GPT-4o Vision + GPT-4
 ALGORAND_PRIVATE_KEY="..."           # Algorand wallet
 OPENWEATHER_API_KEY="..."            # Weather data
+DATABASE_URL="postgresql://..."      # PostgreSQL connection
 
-# Optional (x402)
-PAYMENT_ADDRESS="0x742d35..."        # Your payment address
+# Optional (x402 payments)
+PAYMENT_ADDRESS="0x742d35..."        # USDC payment address
 X402_FACILITATOR_URL="https://facilitator.base.org"
 ```
 
-### Production Setup
+---
 
-1. **Set environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with production keys
-   ```
+## API Endpoints
 
-2. **Run unified system**
-   ```bash
-   ./run_unified_system.sh
-   ```
+Full interactive docs at `/docs` on the running server.
 
-3. **Start x402 API** (optional)
-   ```bash
-   ./run_real_x402.sh
-   ```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Health check (DB, AI, Algorand status) |
+| GET | `/plants/catalog` | List 8 available plant species |
+| POST | `/plants/register` | Register a new plant (30 pts) |
+| GET | `/plants/{id}` | Get plant details |
+| GET | `/plants/user/{user_id}` | List user's plants |
+| POST | `/plants/{id}/planting-photo` | Upload photo + AI recognition |
+| POST | `/plants/{id}/health-scan` | AI health diagnosis (5 pts) |
+| POST | `/plants/{id}/water` | Log watering (5 pts + streak) |
+| POST | `/plants/{id}/remedy-apply` | Record remedy application |
+| POST | `/plants/{id}/protection` | Record plant protection (10 pts) |
+| GET | `/plants/{id}/verification-report` | Full verification report |
+| GET | `/users/{id}/points` | User point balance |
+| GET | `/users/{id}/history` | User activity history |
+| POST | `/users/{id}/biometric` | Store biometric signature |
+| GET | `/weather?lat=X&lon=Y` | Real-time weather data |
+| POST | `/verify/fraud-check` | GPT-4 fraud detection |
+| POST | `/verify/complete` | Full 7-stage verification pipeline |
+| POST | `/nft/mint` | Mint carbon credit NFT on Algorand |
+| GET | `/stats` | System-wide statistics |
+| GET | `/stats/csr` | CSR dashboard for sponsors |
 
-4. **Deploy frontend** (optional)
-   ```bash
-   cd frontend
-   npm install
-   npm run build
-   npm start
-   ```
+---
 
-### Docker Deployment
+## Testing
 
-```dockerfile
-FROM python:3.12-slim
+```bash
+# Run the full E2E test suite against the live server
+python3 tests/test_live_server.py
 
-WORKDIR /app
-COPY . .
-
-RUN pip install -r requirements.txt
-
-ENV OPENAI_API_KEY="..."
-ENV ALGORAND_PRIVATE_KEY="..."
-
-CMD ["python3", "unified_main.py"]
+# Run other test suites
+python3 tests/test_complete_e2e.py
+python3 tests/test_complete_system.py
+python3 tests/test_nft_minting.py
 ```
 
 ---
 
-## 📚 Documentation
+## Deployment
+
+Currently deployed on **Railway** at https://joyo-cc-production.up.railway.app
+
+```bash
+# Docker
+docker build -t joyo .
+docker run -p 8000:8000 --env-file .env joyo
+
+# Railway
+./scripts/deploy.sh
+```
+
+See `docs/DEPLOYMENT.md` for full production instructions.
+
+---
+
+## Documentation
+
+Extended docs live in `docs/`:
 
 | Document | Description |
 |----------|-------------|
-| **README.md** | This file - main documentation |
-| **REAL_X402_GUIDE.md** | Complete x402 protocol guide |
-| **X402_IMPLEMENTATION_SUMMARY.md** | x402 implementation details |
-| **UNIFIED_SYSTEM.md** | Unified verification system docs |
-| **JOYO_PHASE1_COMPLETE.md** | Joyo AI services documentation |
-| **PROJECT_SUMMARY.md** | Complete project overview |
-| **DEPLOYMENT.md** | Deployment instructions |
-| **ENHANCED_FEATURES.md** | Advanced features guide |
-| **GESTURE_GUIDE.md** | Gesture verification guide |
+| `docs/DEPLOYMENT.md` | Production deployment guide |
+| `docs/FRONTEND_INTEGRATION_GUIDE.md` | Frontend integration reference |
+| `docs/UNIFIED_SYSTEM.md` | 7-stage pipeline specification |
+| `docs/API_ENDPOINTS.md` | API endpoint details |
+| `docs/X402_IMPLEMENTATION_SUMMARY.md` | x402 payment protocol |
+| `docs/GESTURE_GUIDE.md` | Biometric gesture system |
+| `docs/ENHANCED_FEATURES.md` | Advanced features |
+| `docs/POSTGRESQL_MIGRATION.md` | Database migration guide |
+| `docs/JOYO_QUICKSTART.md` | Quickstart walkthrough |
+| `docs/ETH_BUENOS_AIRES_PITCH_DECK.md` | Pitch deck |
+| `joyo_ai_services/README.md` | AI services API reference |
 
 ---
 
-## 🎯 Use Cases
+## Tech Stack
 
-### 1. Carbon Credit Verification
-- User plants tree
-- Complete 7-stage verification
-- Mint NFT on Algorand
-- Sell on marketplace
-
-### 2. AI-Powered APIs
-- Plant verification API ($25/call)
-- Health diagnosis API ($30/call)
-- Remedy database ($20/query)
-- AI agents pay automatically via x402
-
-### 3. Plant Monitoring
-- Daily health scans
-- Growth tracking
-- Issue detection
-- Organic remedy suggestions
-
-### 4. Carbon Credit Marketplace
-- List NFTs for sale
-- AI agents buy automatically
-- Instant USDC settlement
-- Blockchain proof of ownership
+- **Backend:** Python 3.10+, FastAPI, PostgreSQL
+- **AI:** OpenAI GPT-4o Vision, GPT-4
+- **Blockchain:** Algorand (py-algorand-sdk), ARC-69 NFTs
+- **Payments:** Coinbase x402, USDC on Base L2
+- **Frontend:** Next.js 14, React 18, TailwindCSS
+- **Infra:** Railway, Docker
 
 ---
 
-## 📊 Performance
+## License
 
-| Metric | Value |
-|--------|-------|
-| **Plant Recognition Accuracy** | 95%+ |
-| **Health Diagnosis Accuracy** | 90%+ |
-| **Fraud Detection Rate** | 95%+ |
-| **NFT Minting Success** | 100% |
-| **Average Response Time** | <3s per AI call |
-| **Complete Pipeline Time** | 2-3 minutes |
-| **x402 Settlement Time** | ~15 seconds |
-
----
-
-## 🔒 Security
-
-- ✅ **Biometric Verification** - Hand gesture capture
-- ✅ **GPS Validation** - Location consistency checking
-- ✅ **AI Fraud Detection** - GPT-4 Vision analysis
-- ✅ **Blockchain Immutability** - Algorand NFTs
-- ✅ **Secure Payments** - x402 protocol with EIP-3009
-
----
-
-## 🤝 Contributing
-
-This is a complete, production-ready system. For contributions:
-
-1. Review the code in essential files
-2. Test your changes thoroughly
-3. Follow existing code style
-4. Update documentation
-
----
-
-## 📄 License
-
-MIT License - See LICENSE file
-
----
-
-## 🆘 Support
-
-- **x402 Protocol**: https://github.com/coinbase/x402
-- **Algorand**: https://developer.algorand.org
-- **Issues**: Open a GitHub issue
-
----
-
-## 🎉 Success Metrics
-
-### System Status
-✅ **7-Stage Pipeline** - Fully operational  
-✅ **AI Services** - 4 services integrated  
-✅ **x402 Protocol** - Real Coinbase implementation  
-✅ **NFT Minting** - Algorand blockchain  
-✅ **Tests** - Complete coverage  
-✅ **Documentation** - Comprehensive  
-
-### What You Can Do
-1. ✅ Verify carbon credits with AI
-2. ✅ Mint NFTs on Algorand
-3. ✅ Accept x402 payments
-4. ✅ Monitor plant health
-5. ✅ Detect fraud automatically
-6. ✅ Trade carbon credits
-
----
-
-**Built with ❤️ for a sustainable future** 🌱💚⛓️
-
----
-
-## 📞 Quick Links
-
-- **Main System**: `./run_unified_system.sh`
-- **x402 API**: `./run_real_x402.sh`
-- **Joyo Demo**: `./run_joyo_demo.sh`
-- **Tests**: `./run_complete_test.sh`
-- **Docs**: `README.md` (you are here)
-
----
-
-**Ready to mint your first carbon credit NFT?** 🚀
-
-```bash
-./run_unified_system.sh
-```
+MIT
