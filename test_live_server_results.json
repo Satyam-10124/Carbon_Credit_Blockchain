@@ -1,0 +1,160 @@
+{
+  "server": "https://joyo-cc-production.up.railway.app",
+  "test_user": "test_user_1773995602",
+  "test_plant": "PLANT_1B0A68D1",
+  "timestamp": "2026-03-20T14:03:41",
+  "total_tests": 21,
+  "passed": 19,
+  "failed": 2,
+  "pass_rate": "90.5%",
+  "total_time_ms": 19100,
+  "results": [
+    {
+      "status": true,
+      "endpoint": "/",
+      "method": "GET",
+      "detail": "status=200 keys=['name', 'version', 'description', 'endpoints', 'timestamp']",
+      "elapsed_ms": 649
+    },
+    {
+      "status": true,
+      "endpoint": "/health",
+      "method": "GET",
+      "detail": "status=200 body={'status': 'healthy', 'database': 'connected', 'ai_services': 'available', 'algorand': 'available', 'timestamp': '2026-03-20T08:33:23.210689'}",
+      "elapsed_ms": 281
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/catalog",
+      "method": "GET",
+      "detail": "status=200 plants=8",
+      "elapsed_ms": 327
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/register",
+      "method": "POST",
+      "detail": "status=200 plant_id=PLANT_1B0A68D1 points=None",
+      "elapsed_ms": 1385
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/PLANT_1B0A68D1",
+      "method": "GET",
+      "detail": "status=200 type=bamboo",
+      "elapsed_ms": 281
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/user/test_user_1773995602",
+      "method": "GET",
+      "detail": "status=200 plant_count=1",
+      "elapsed_ms": 299
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/PLANT_1B0A68D1/planting-photo",
+      "method": "POST",
+      "detail": "status=200 ai=present points=None",
+      "elapsed_ms": 639
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/PLANT_1B0A68D1/health-scan",
+      "method": "POST",
+      "detail": "status=200 health_score=85 points=None",
+      "elapsed_ms": 331
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/PLANT_1B0A68D1/water",
+      "method": "POST",
+      "detail": "status=200 points=None streak={'current': 1, 'longest': 1, 'total_waterings': 1}",
+      "elapsed_ms": 375
+    },
+    {
+      "status": false,
+      "endpoint": "/plants/PLANT_1B0A68D1/remedy-apply",
+      "method": "POST",
+      "detail": "status=500 points=None",
+      "elapsed_ms": 298
+    },
+    {
+      "status": true,
+      "endpoint": "/plants/PLANT_1B0A68D1/protection",
+      "method": "POST",
+      "detail": "status=200 points=None",
+      "elapsed_ms": 355
+    },
+    {
+      "status": true,
+      "endpoint": "/users/test_user_1773995602/points",
+      "method": "GET",
+      "detail": "status=200 total_points=70",
+      "elapsed_ms": 283
+    },
+    {
+      "status": true,
+      "endpoint": "/users/test_user_1773995602/history",
+      "method": "GET",
+      "detail": "status=200 activities=0",
+      "elapsed_ms": 333
+    },
+    {
+      "status": true,
+      "endpoint": "/stats",
+      "method": "GET",
+      "detail": "status=200 keys=['success', 'stats', 'timestamp']",
+      "elapsed_ms": 337
+    },
+    {
+      "status": true,
+      "endpoint": "/stats/csr",
+      "method": "GET",
+      "detail": "status=200 keys=['success', 'csr_dashboard']",
+      "elapsed_ms": 328
+    },
+    {
+      "status": true,
+      "endpoint": "/weather",
+      "method": "GET",
+      "detail": "status=200 temp=31",
+      "elapsed_ms": 301
+    },
+    {
+      "status": true,
+      "endpoint": "/users/test_user_1773995602/biometric",
+      "method": "POST",
+      "detail": "status=200 stored=True",
+      "elapsed_ms": 305
+    },
+    {
+      "status": true,
+      "endpoint": "/verify/fraud-check",
+      "method": "POST",
+      "detail": "status=200 valid=True risk=low",
+      "elapsed_ms": 4053
+    },
+    {
+      "status": true,
+      "endpoint": "/nft/mint",
+      "method": "POST",
+      "detail": "status=200 tx=ZQ4QGPLJVK7I6VWSW664V7DATBOYWAWVMUJOBPVI",
+      "elapsed_ms": 6031
+    },
+    {
+      "status": false,
+      "endpoint": "/plants/PLANT_1B0A68D1/verification-report",
+      "method": "GET",
+      "detail": "status=500 stages=N/A",
+      "elapsed_ms": 337
+    },
+    {
+      "status": true,
+      "endpoint": "/verify/complete",
+      "method": "POST",
+      "detail": "status=200 overall=approved duration=1535ms",
+      "elapsed_ms": 1535
+    }
+  ]
+}
